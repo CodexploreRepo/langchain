@@ -1,17 +1,21 @@
 # Document Splitting
 
+<p align="center"><img src="../assets/img/document_splitting.png" width=400/></p>
+
 - Split documents into smaller chunks
   - `chunk_size` the length of the chunk
   - `chunk_overlap` overlap between 2 chunks, or sliding windows
 - Retaining meaningful relationships
-  - Example:
+  - Example of splitting into chunks without maintaining meaningful relationship:
     - Original Sentence: ".. on this model. The Toyota Camry has a head-snapping 80 HP and an eight-speed automatic transmission that will .."
     - Chunk 1: "on this model. The Toyota Camry has a head-snapping"
     - Chunk 2: "80 HP and an eight-speed automatic transmission that will"
 
 ## Types of Text Splitters
 
-- LangChain offers many different types of `text splitters`.
+<p align="center"><img src="../assets/img/langchain-text-splitter-example.png" width=400/></p>
+
+- LangChain offers many different types of `text splitters`
 - Table columns:
   - **Name**: Name of the text splitter
   - **Classes**: Classes that implement this text splitter
