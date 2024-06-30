@@ -94,6 +94,8 @@ qa = ConversationalRetrievalChain.from_llm(
     retriever=retriever,   # Retriever
     memory=memory          # Memory
     chain_type="refine"    # Chain Type: stuff
-    condense_question_prompt=QA_CHAIN_PROMPT # prompt template
+    condense_question_prompt=QA_CHAIN_PROMPT, # prompt template
+    return_source_documents=True,
+    return_generated_question=True,
 )
 ```
