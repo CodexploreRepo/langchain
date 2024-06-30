@@ -113,6 +113,8 @@ result["source_documents"][0]
 
 ### `RetrievalQA` Chain with Map Reduce, Refine, and MapRerank
 
+- You can also define the chain type as one of the four options: "stuff", "map_reduce", "refine", "map_rerank".
+
 ```Python
 qa_chain_mr = RetrievalQA.from_chain_type(
     llm,
