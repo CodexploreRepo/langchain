@@ -1,5 +1,10 @@
 # LangChain
 
+## Introduction
+
+- [LangChain Introduction](./docs/intro/introduction.md)
+- [Prompt Templates](./docs/intro/prompt_templates.md)
+
 ## RAG
 
 - Indexing
@@ -16,4 +21,8 @@
 
 ## Tools
 
-- [LangSmith]()
+- [LangSmith](./docs/langsmith.md)
+
+## Installation
+
+- Core LangChain: `pip install --upgrade langchain`
