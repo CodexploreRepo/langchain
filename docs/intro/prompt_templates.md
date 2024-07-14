@@ -39,6 +39,117 @@ prompt_template = PromptTemplate.from_template(
 formatted_prompt = prompt_template.format(dish="pasta", flavor="spicy")
 ```
 
+### `FewShotPromptTemplate`
+
+- Few-shot learning is used to train models to do new tasks well, even when they have only a limited amount of training data available.
+- Many real-world use cases benefit from few-shot learning:
+  - Use Case 1 - _An automated fact checking tool_:
+    - Provide different few-shot examples where the model is shown how to verify information, ask follow-up questions if necessary, and conclude whether a statement is true or false.
+  - Use Case 2 - _A technical support and troubleshooting guide_:
+    - Provide common troubleshooting steps, including how to ask the user for specific system details, interpret symptoms, and guide them through the solution process.
+- How to create a `FewShotPromptTemplate`
+  - Step 1: Create a list of few-shot examples.
+
+```Python
+from langchain_core.prompts.few_shot import FewShotPromptTemplate
+from langchain_core.prompts.prompt import PromptTemplate
+
+examples = [
+    {
+        "question": "Who lived longer, Muhammad Ali or Alan Turing?",
+        "answer": """
+Are follow up questions needed here: Yes.
+Follow up: How old was Muhammad Ali when he died?
+Intermediate answer: Muhammad Ali was 74 years old when he died.
+Follow up: How old was Alan Turing when he died?
+Intermediate answer: Alan Turing was 41 years old when he died.
+So the final answer is: Muhammad Ali
+""",
+    },
+    {
+        "question": "When was the founder of craigslist born?",
+        "answer": """
+Are follow up questions needed here: Yes.
+Follow up: Who was the founder of craigslist?
+Intermediate answer: Craigslist was founded by Craig Newmark.
+Follow up: When was Craig Newmark born?
+Intermediate answer: Craig Newmark was born on December 6, 1952.
+So the final answer is: December 6, 1952
+""",
+    },
+    {
+        "question": "Who was the maternal grandfather of George Washington?",
+        "answer": """
+Are follow up questions needed here: Yes.
+Follow up: Who was the mother of George Washington?
+Intermediate answer: The mother of George Washington was Mary Ball Washington.
+Follow up: Who was the father of Mary Ball Washington?
+Intermediate answer: The father of Mary Ball Washington was Joseph Ball.
+So the final answer is: Joseph Ball
+""",
+    },
+]
+```
+
+- Step 2: Create a formatter for the few-shot examples
+  - Configure a formatter, which is a `PromptTemplate` object, that will format the few-shot examples into a string.
+
+```Python
+example_prompt = PromptTemplate(
+    input_variables=["question", "answer"], template="Question: {question}\n{answer}"
+)
+# view the the first example after formatted with "example_prompt"
+print(example_prompt.format(**examples[0]))
+
+# Question: Who lived longer, Muhammad Ali or Alan Turing?
+
+# Are follow up questions needed here: Yes.
+# Follow up: How old was Muhammad Ali when he died?
+# Intermediate answer: Muhammad Ali was 74 years old when he died.
+# Follow up: How old was Alan Turing when he died?
+# Intermediate answer: Alan Turing was 41 years old when he died.
+# So the final answer is: Muhammad Ali
+
+```
+
+- Step 3: create a `FewShotPromptTemplate` object that takes
+  - Few-shot examples
+  - Formatter for the few-shot examples.
+
+```Python
+prompt = FewShotPromptTemplate(
+    examples=examples,
+    example_prompt=example_prompt,
+    suffix="Question: {input}",
+    input_variables=["input"],
+)
+
+print(prompt.format(input="Who was the father of Mary Ball Washington?"))
+```
+
+### `ChatPromptTemplate`
+
+- `ChatPromptTemplate` class focuses on the _conversation flow_ between a user and an AI system, and provides instructions or requests for roles:
+  - `system` for a system chat message setting the stage (e.g., “You are a knowledgeable historian”).
+  - `user` which contains the user’s specific historical _question_.
+  - `AI` which contains the LLM’s preliminary _response_ or follow-up _question_.
+
+```Python
+from langchain_core.prompts import ChatPromptTemplate
+
+# Define roles and placeholders
+chat_template = ChatPromptTemplate.from_messages(
+  [
+    ("system", "You are a knowledgeable AI assistant. You are called {name}."),
+    ("user", "Hi, what's the weather like today?"),
+    ("ai", "It's sunny and warm outside."),
+    ("user", "{user_input}"),
+   ]
+)
+
+messages = chat_template.format_messages(name="Alice", user_input="Can you tell me a joke?")
+```
+
 ## Prompt Template Examples
 
 - Email Marketing
