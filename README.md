@@ -4,6 +4,7 @@
 
 - [LangChain Introduction](./docs/intro/introduction.md)
 - [Prompt Templates](./docs/intro/prompt_templates.md)
+- [Output Parsers](./docs/intro/output_parsers.md)
 
 ## RAG
 
