@@ -137,6 +137,27 @@ prompt = FewShotPromptTemplate(
 print(prompt.format(input="Who was the father of Mary Ball Washington?"))
 ```
 
+- Another example of few shot prompt:
+
+```Python
+examples = [
+    {"input": "cm", "output": "1cm = 10mm"},
+]
+example_prompt = PromptTemplate.from_template(
+  "Word:{input}\nExplanation:{output}"
+)
+
+prompt = FewShotPromptTemplate(
+    examples=examples,
+    example_prompt=example_prompt,
+    suffix="Word:{input}",
+    input_variables=["input"],
+)
+
+llm.invoke(prompt.format(input="foot"))
+# The output for the prompt is `Explanation:1 foot = 12 inches`
+```
+
 ### `ChatPromptTemplate`
 
 - `ChatPromptTemplate` class focuses on the _conversation flow_ between a user and an AI system, and provides instructions or requests for roles:
