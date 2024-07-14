@@ -27,3 +27,7 @@
 ## Installation
 
 - Core LangChain: `pip install --upgrade langchain`
+
+## Resources
+
+- [Deep Learning's LangChain Short Course](https://learn.deeplearning.ai/courses/langchain)
